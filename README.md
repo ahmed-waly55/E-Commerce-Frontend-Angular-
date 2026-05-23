@@ -1,59 +1,186 @@
-# ECommerce
+# 🛒 E-Commerce Project
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+A modern E-Commerce application built with Angular following a clean and scalable architecture.
 
-## Development server
+---
 
-To start a local development server, run:
+# 📁 Project Structure
+
+The project is organized into feature-based folders to improve scalability and maintainability.
+
+```bash
+src/
+└── app/
+    ├── core/
+    ├── feature/
+    └── shared/
+```
+
+### Folder Explanation
+
+#### `core/`
+
+Contains singleton services and app-wide functionality.
+
+Examples:
+
+- Guards
+- Interceptors
+- Services
+- Layout Components
+- Authentication Logic
+
+#### `feature/`
+
+Contains feature modules and application pages.
+
+Examples:
+
+- Home
+- Products
+- Cart
+- Brands
+- Categories
+- Payments
+
+#### `shared/`
+
+Contains reusable components, pipes, directives, and shared utilities.
+
+Examples:
+
+- Shared Components
+- Reusable UI Elements
+- Pipes
+- Directives
+
+---
+
+# ⚡ Generate Multiple Components
+
+You can create multiple Angular components at once using the following command:
+
+```bash
+for %n in (home product cart brands categories p_details payments) do ng g c %n
+```
+
+This command will generate the following components:
+
+- Home
+- Product
+- Cart
+- Brands
+- Categories
+- Product Details
+- Payments
+
+---
+
+# ⚙️ Angular CLI Configuration
+
+To improve naming conventions and project consistency, add the following configuration inside `angular.json`:
+
+```json
+"schematics": {
+  "@schematics/angular:component": {
+    "type": "component"
+  },
+  "@schematics/angular:directive": {
+    "type": "directive"
+  },
+  "@schematics/angular:service": {
+    "type": "service"
+  },
+  "@schematics/angular:class": {
+    "type": "class"
+  },
+  "@schematics/angular:interface": {
+    "type": "interface"
+  },
+  "@schematics/angular:interceptor": {
+    "typeSeparator": "-"
+  }
+}
+```
+
+### Why use this configuration?
+
+This setup helps maintain a consistent naming convention across the project.
+
+Examples:
+
+```bash
+auth.component.ts
+auth.service.ts
+auth.directive.ts
+auth.interceptor.ts
+```
+
+Instead of inconsistent file naming.
+
+---
+
+# 🚀 Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the project:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Open in browser:
 
 ```bash
-ng generate component component-name
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 📌 Feature Placement Rule
 
-```bash
-ng generate --help
-```
+Before creating any feature, ask yourself:
 
-## Building
+> **Is login/authentication required to access this feature?**
 
-To build the project run:
+#### Put it inside `core/`
 
-```bash
-ng build
-```
+If the feature is **essential for the whole application** or requires authentication globally.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Examples:
 
-## Running unit tests
+- Authentication
+- Navbar
+- Layout
+- Guards
+- Interceptors
+- User Session Management
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+#### Put it inside `feature/`
 
-```bash
-ng test
-```
+If the feature represents a **specific business page or functionality** and is not globally required.
 
-## Running end-to-end tests
+Examples:
 
-For end-to-end (e2e) testing, run:
+- Home
+- Products
+- Cart
+- Categories
+- Brands
+- Payments
 
-```bash
-ng e2e
-```
+### Example
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+✅ **Profile Page** → `feature/`  
+Because it is a page/feature.
 
-## Additional Resources
+✅ **Auth Service / JWT Handling** → `core/`  
+Because authentication is a global application concern.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+❌ **Login Page inside `core/`?**
+
+- If login is a **mandatory entry point for the whole app** → put it in `core/`
+- If login is **optional or isolated as a normal feature** → put it in `feature/`
