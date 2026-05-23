@@ -16,6 +16,12 @@ src/
     └── shared/
 ```
 
+## package install
+
+```
+npm install flowbite
+```
+
 ### Folder Explanation
 
 #### `core/`
